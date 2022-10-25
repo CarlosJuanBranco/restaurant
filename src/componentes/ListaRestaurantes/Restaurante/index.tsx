@@ -4,7 +4,6 @@ import Prato from '../Prato';
 import { useEffect, useState } from 'react';
 import estilos from './Restaurante.module.scss';
 import axios from 'axios';
-import { IPaginacao } from '../../../interfaces/IPaginacao';
 
 interface RestauranteProps {
   restaurante: IRestaurante
