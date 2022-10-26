@@ -2,14 +2,15 @@ import { useEffect, useState } from "react"
 import IRestaurante from "../../interfaces/IRestaurante"
 import { TableContainer, Paper, Table, TableHead, TableCell, TableBody, TableRow } from "@mui/material"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 const AdministracaoRestaurante = () => {
-    const [restaurante, setRestaurante] = useState<IRestaurante[]>([])
+    const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([])
 
     useEffect(() => {
         axios.get<IRestaurante[]>("http://localhost:8000/api/v2/restaurantes/")
             .then(resposta => {
-                setRestaurante(resposta.data)
+                setRestaurantes(resposta.data)
             })
             .catch(erro =>
                 console.log(erro))
@@ -23,12 +24,18 @@ const AdministracaoRestaurante = () => {
                         <TableCell>
                             Nome
                         </TableCell>
+                        <TableCell>
+                            Editar
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {restaurante.map(restaurantes => <TableRow key={restaurantes.id}>
+                    {restaurantes.map(restaurante => <TableRow key={restaurante.id}>
                         <TableCell>
-                            {restaurantes.nome}
+                            {restaurante.nome}
+                        </TableCell>
+                        <TableCell>
+                            [<Link to={`/admin/restaurantes/${restaurante.id}`}>editar</Link>]
                         </TableCell>
                     </TableRow>)}
 

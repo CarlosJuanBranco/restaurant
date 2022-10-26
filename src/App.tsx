@@ -10,8 +10,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/restaurantes" element={<VitrineRestaurantes />} />
-      <Route path="/adminRestaurante" element={<AdministracaoRestaurante />} />
-      <Route path="/adminRestaurante/novo" element={<FormularioRestaurante />} />
+      <Route path="/admin/restaurantes" element={<AdministracaoRestaurante />} />
+      <Route path="/admin/restaurantes/novo" element={<FormularioRestaurante />} />
+      <Route path="/admin/restaurantes/:id" element={<FormularioRestaurante />} />
     </Routes>
   );
 }
