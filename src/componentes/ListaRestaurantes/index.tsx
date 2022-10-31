@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { IPaginacao } from '../../interfaces/IPaginacao';
@@ -8,36 +9,34 @@ import Restaurante from './Restaurante';
 const ListaRestaurantes = () => {
 
   const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
-  const [proximaPagina, setProximaPagina] = useState('');
-  const [paginaAnterior, setPaginaAnterior] = useState('')
+  const [proximaProxima, setProximaPagina] = useState("")
 
-  const carregarDados = (url: string) => {
-    axios.get<IPaginacao<IRestaurante>>(url)
+  useEffect(() => {
+    axios.get<IPaginacao<IRestaurante>>("http://localhost:8000/api/v1/restaurantes/")
       .then(resposta => {
         setRestaurantes(resposta.data.results)
         setProximaPagina(resposta.data.next)
-        setPaginaAnterior(resposta.data.previous)
       })
-      .catch(erro => {
-        console.log("Algo errado", erro)
+      .catch(error => {
+        console.log("Erro na renderização", error)
+      })
+  }, [])
+
+  const verMais = () => {
+    axios.get<IPaginacao<IRestaurante>>(proximaProxima)
+      .then(resposta => {
+        setRestaurantes(resposta.data.results)
+        setProximaPagina(resposta.data.next)
+      })
+      .catch(error => {
+        console.log("Erro na renderização", error)
       })
   }
-
-  useEffect(() => {
-    carregarDados("http://localhost:8000/api/v1/restaurantes/")
-  }, []);
 
   return (<section className={style.ListaRestaurantes}>
     <h1>Os restaurantes mais <em>bacanas</em>!</h1>
     {restaurantes?.map(item => <Restaurante restaurante={item} key={item.id} />)}
-    {paginaAnterior && <button
-      onClick={() => carregarDados(paginaAnterior)} disabled={!paginaAnterior}>
-      Página Anterior
-    </button>}
-    {proximaPagina && <button
-      onClick={() => carregarDados(proximaPagina)} disabled={!proximaPagina}>
-      Próxima Página
-    </button>}
+    {proximaProxima && <Button onClick={verMais}> Ver Mais </Button>}
   </section>)
 }
 
