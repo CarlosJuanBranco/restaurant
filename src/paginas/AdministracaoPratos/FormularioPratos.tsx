@@ -22,13 +22,41 @@ const FormularioPratos = () => {
     const aoSubmeter = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
 
+        const formData = new FormData();
+
+        formData.append("nome", nomePrato)
+        formData.append("descricao", descricao)
+        formData.append("tag", tag)
+        formData.append("restaurante", restaurante)
+
+        if (imagem) {
+            formData.append("imagem", imagem)
+        }
+
+        http.request({
+            url: "pratos/",
+            method: "POST",
+            headers: {
+                'Content-Type': "multipart/form-data"
+            },
+            data: formData
+        })
+            .then(() => {
+                setNomePrato('')
+                setDescricao('')
+                setTag('')
+                setRestaurante('')
+                alert("Prato cadastrado com sucesso !")
+            })
+            .catch(error => console.log(error))
+
     }
 
     const [tag, setTag] = useState('')
     const [tags, setTags] = useState<ITag[]>([])
 
-    const [restaurante, setRestaurante] = useState<IRestaurante[]>([])
-    const [restaurantes, setRestaurantes] = useState('')
+    const [restaurante, setRestaurante] = useState('')
+    const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([])
 
     useEffect(() => {
         http.get<{ tags: ITag[] }>("tags/")
@@ -36,7 +64,7 @@ const FormularioPratos = () => {
 
         http.get<IRestaurante[]>("restaurantes/")
             .then(resposta => {
-                setRestaurante(resposta.data)
+                setRestaurantes(resposta.data)
             })
 
     }, [])
@@ -66,7 +94,7 @@ const FormularioPratos = () => {
                 <FormControl margin="dense" fullWidth>
                     <InputLabel id="select-tag">Tag</InputLabel>
                     <Select labelId="select-tag" value={tag} onChange={evento => setTag(evento.target.value)}>
-                        {tags.map(tag => <MenuItem key={tag.id} value={tag.id}>
+                        {tags.map(tag => <MenuItem key={tag.id} value={tag.value}>
                             {tag.value}
                         </MenuItem>)}
                     </Select>
@@ -74,8 +102,8 @@ const FormularioPratos = () => {
 
                 <FormControl margin="dense" fullWidth>
                     <InputLabel id="select-restaurante">Restaurantes</InputLabel>
-                    <Select labelId="select-restaurante" value={restaurantes} onChange={evento => setRestaurantes(evento.target.value)}>
-                        {restaurante.map(restaurante => <MenuItem key={restaurante.id} value={restaurante.nome}>
+                    <Select labelId="select-restaurante" value={restaurante} onChange={evento => setRestaurante(evento.target.value)}>
+                        {restaurantes.map(restaurante => <MenuItem key={restaurante.id} value={restaurante.id}>
                             {restaurante.nome}
                         </MenuItem>)}
                     </Select>
