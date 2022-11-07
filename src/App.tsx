@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import AdministracaoPrato from './paginas/AdministracaoPratos/AdministracaoPratos';
-import FormularioPratos from './paginas/AdministracaoPratos/Formulario';
+import FormularioPratos from './paginas/AdministracaoPratos/FormularioPratos';
 import AdministracaoRestaurante from './paginas/AdministracaoRestaurante/AdministracaoRestaurante';
-import FormularioRestaurante from './paginas/AdministracaoRestaurante/Formulario';
+import FormularioRestaurante from './paginas/AdministracaoRestaurante/FormularioRestaurante';
 import RotaBaseAdmin from './paginas/AdministracaoRestaurante/RotaBaseAdmin';
 import Home from './paginas/Home';
 import VitrineRestaurantes from './paginas/VitrineRestaurantes';
