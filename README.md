@@ -1,4 +1,4 @@
-# restaurant
+# Restaurants
 
 ### Objetivo APP
 Aplicativo desenvolvido para criar, editar e listar pratos e restaurantes.
