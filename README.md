@@ -13,7 +13,7 @@ Aplicativo desenvolvido para criar, editar e listar pratos e restaurantes.
 ### Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](http://git-scm.com), [Node.js](http://nodejs.org/en/).
-Além diso é bom ter um editor para trabalhar com o código como [VSCode](http://code.visualstudio.com/).
+Além disso é bom ter um editor para trabalhar com o código como [VSCode](http://code.visualstudio.com/).
 
 ### Rodando o projeto na sua máquina 💻
 
